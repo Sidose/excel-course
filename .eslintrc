@@ -8,6 +8,7 @@
   "rules": {
     "arrow-parens": "off",
     "comma-dangle": "off",
+    "eol-last": "off",
     "require-jsdoc": "off",
     "semi": "off"
   },
