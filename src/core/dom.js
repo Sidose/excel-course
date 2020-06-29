@@ -38,6 +38,41 @@ class Dom {
     }
     return this
   }
+
+  css(styles = {}) {
+    // var 1:
+    // for (const style in styles) {
+    //   if (!styles.hasOwnProperty(style)) {
+    //     continue;
+    //   }
+    //   this.$el.style[style] = styles[style]
+    // }
+
+    // var 2:
+    // Object.entries(styles).forEach((key, value) => {
+    //   console.log(key, value)
+    //   this.$el.style[key] = value
+    // });
+
+    // var 3:
+    Object.assign(this.$el.style, styles);
+    Object.keys(styles).forEach(key => this.$el.style[key] = styles[key])
+  }
+
+  get data() {
+    return this.$el.dataset
+  }
+
+  closest(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
+  }
+  getCoords() {
+    return this.$el.getBoundingClientRect()
+  }
 }
 
 export function $(selector) {
