@@ -47,3 +47,37 @@ export function resizeHandler($root, event) {
     });
   }
 }
+
+export function selectMultiple($root, event, selectionObject) {
+  const cellFirstId = event.target.dataset.id;
+
+  document.onmouseup = e => {
+    document.onmousemove = null
+    document.onmouseup = null
+    const cellLastId = e.target.dataset.id;
+
+    const [firstX, firstY] = cellFirstId.split(':');
+    const [lastX, lastY] = cellLastId.split(':');
+
+    if (!lastX || !lastY) {
+      return
+    }
+
+    const xMin = +firstX < +lastX ? firstX : lastX;
+    const xMax = xMin === firstX ? lastX : firstX;
+    const yMin = +firstY < +lastY ? firstY : lastY;
+    const yMax = yMin === firstY ? lastY : firstY;
+    const groupCell = [];
+
+    console.log(xMin, xMax, yMin, yMax)
+    for (let x = parseInt(xMin); x <= parseInt(xMax); ++x) {
+      for (let y = parseInt(yMin); y <= parseInt(yMax); ++y) {
+        console.log('x:y', x, y)
+        const $el = $root.find(`[data-id="${x}:${y}"]`)
+        groupCell.push($el)
+      }
+    }
+    selectionObject.selectGroup(groupCell)
+    console.log(selectionObject.group)
+  }
+}
